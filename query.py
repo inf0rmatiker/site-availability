@@ -60,7 +60,7 @@ def main():
             if os.path.isfile(target_file_path):
                 os.remove(target_file_path)
 
-            shutil.copy(statistics_file, f"{attack_dir}/client_capture.csv")
+            shutil.copyfile(statistics_file, f"{attack_dir}/client_capture.csv")
 
 
 
