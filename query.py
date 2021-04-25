@@ -5,6 +5,7 @@ import sys
 import time
 import urllib.request
 from urllib.error import HTTPError
+from urllib.error import URLError
 import shutil
 
 def main():
@@ -39,10 +40,21 @@ def main():
                     with open(target_file_path,"wb") as fp:
                         fp.write(html_content)
 
+                except ConnectionResetError as e:
+                    print(f"Failed to establish connection")
+                    code   = 408
+                    reason = str(e)
+
                 except HTTPError as e:
                     print(f"Failed to download page, code [{e.code}], reason: {e.reason}")
                     code   = e.code
                     reason = e.reason
+
+                except URLError as e:
+                    print(f"Failed to retrieve URL, reason: {e.reason}")
+                    code   = 404
+                    reason = e.reason
+
 
                 after  = time.time()
                 difference_seconds = after - before
@@ -60,7 +72,7 @@ def main():
             if os.path.isfile(target_file_path):
                 os.remove(target_file_path)
 
-            shutil.copyfile(statistics_file, f"{attack_dir}/client_capture.csv")
+    shutil.copyfile(statistics_file, f"{attack_dir}/client_capture.csv")
 
 
 
