@@ -13,7 +13,7 @@ def main():
     target_file_path = "index.html"
 
     with open(statistics_file, "w") as f:
-        f.write("time_seconds,status_code,error_reason\n")
+        f.write("timestamp,time_seconds,status_code,error_reason\n")
 
         try:
 
@@ -38,7 +38,7 @@ def main():
 
                 after  = time.time()
                 difference_seconds = after - before
-                f.write(f"{difference_seconds},{code},{reason}\n")
+                f.write(f"{before},{difference_seconds},{code},{reason}\n")
                 print("Time %.3f seconds" % difference_seconds)
                 
                 # Remove index.html
