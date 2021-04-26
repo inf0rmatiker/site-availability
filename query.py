@@ -15,7 +15,9 @@ def main():
         exit(1)
 
     attack_dir = f"attacks/{sys.argv[1]}"
-    os.mkdir(attack_dir)
+
+    if not os.path.isdir(attack_dir):
+        os.mkdir(attack_dir)
 
     site_url = "https://radiumoxide.com"
     statistics_file = "captures.txt"
